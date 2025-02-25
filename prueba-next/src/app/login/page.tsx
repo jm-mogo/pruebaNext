@@ -1,19 +1,20 @@
 "use client";
-import { redirect } from "next/navigation";
 import { useState } from "react";
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	if (localStorage.getItem("jwtToken")) {
-		redirect("/");
+		window.location.replace("/");
 	}
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			const response = await fetch("http://127.0.0.1:8080/api/login", {
+			const response = await fetch(apiUrl + "/api/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

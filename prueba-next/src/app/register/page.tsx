@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const RegisterPage = () => {
 	const [formData, setFormData] = useState({
 		name: "",
@@ -19,16 +21,13 @@ const RegisterPage = () => {
 		e.preventDefault();
 		const registerUser = async () => {
 			try {
-				const response = await fetch(
-					"http://127.0.0.1:8080/api/register",
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(formData),
-					}
-				);
+				const response = await fetch(apiUrl + "/api/register", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(formData),
+				});
 
 				console.log(response);
 
@@ -115,6 +114,17 @@ const RegisterPage = () => {
 						Register
 					</button>
 				</form>
+				<div className="text-center">
+					<p className="text-sm text-gray-600">
+						Already have an account?{" "}
+						<a
+							href="/login"
+							className="text-indigo-600 hover:text-indigo-500"
+						>
+							Log in
+						</a>
+					</p>
+				</div>
 			</div>
 		</div>
 	);

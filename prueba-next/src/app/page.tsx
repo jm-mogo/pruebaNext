@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 type User = { name: string };
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Home() {
 	const [user, setUser] = useState<User | undefined>();
 
@@ -12,7 +14,7 @@ export default function Home() {
 			const jwtToken = localStorage.getItem("jwtToken");
 			if (jwtToken) {
 				console.log(jwtToken);
-				const response = await fetch("http://127.0.0.1:8080/api/user", {
+				const response = await fetch(apiUrl + "/api/user", {
 					headers: {
 						Authorization: jwtToken,
 					},

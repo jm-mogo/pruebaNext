@@ -1,5 +1,7 @@
 // import { useRouter } from "next/router";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const LogoutButton = () => {
 	// const router = useRouter();
 
@@ -7,15 +9,12 @@ const LogoutButton = () => {
 		const jwtToken = localStorage.getItem("jwtToken");
 		if (jwtToken) {
 			try {
-				const response = await fetch(
-					"http://127.0.0.1:8080/api/logout",
-					{
-						method: "POST",
-						headers: {
-							Authorization: jwtToken,
-						},
-					}
-				);
+				const response = await fetch(apiUrl + "/api/logout", {
+					method: "POST",
+					headers: {
+						Authorization: jwtToken,
+					},
+				});
 				console.log(response);
 				if (response.ok) {
 					localStorage.removeItem("jwtToken");
